@@ -1,7 +1,10 @@
 {
   "name": "denuncia-app",
   "integrations": {
-    "capacitor": {}
+    "capacitor": {
+      "enabled": false
+    },
+    "cordova": {}
   },
-  "type": "vue"
+  "type": "angular"
 }
