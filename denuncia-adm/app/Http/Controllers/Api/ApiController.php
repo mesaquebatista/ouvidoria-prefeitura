@@ -28,7 +28,7 @@ class ApiController extends Controller
     }
 
     public function sectors(){
-        $sectors = \App\Models\Role::whereNotIn('id', [1, 3])
+        $sectors = \App\Models\Role::whereNotIn('id', [])
             ->select('id', 'display_name as name')
             ->get();
         

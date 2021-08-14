@@ -11,7 +11,7 @@
   <ion-list>  
     <ion-item>
       <ion-label>Setor</ion-label>
-      <ion-select placeholder="Select One">
+      <ion-select placeholder="Select One" [(ngModel)]="setor_id">
         <ion-select-option *ngFor="let secretaria of secretarias" [value]="secretaria.id">{{ secretaria.name }}</ion-select-option>
       </ion-select>
     </ion-item>
@@ -19,6 +19,10 @@
 
   <ion-item>
     <ion-label>Descrição</ion-label>
-    <ion-textarea rows="6" cols="20" placeholder="Digite aqui a denúncia que você quer fazer..."></ion-textarea>
+    <ion-textarea [(ngModel)]="descricao" rows="6" cols="20" placeholder="Digite aqui a denúncia que você quer fazer..."></ion-textarea>
   </ion-item>
 </ion-content>
+
+<ion-toobar>
+  <ion-button class="ml-3 mr-3" (click)="functionButtonClick()" expand="block" size="large">Denúncia</ion-button>
+</ion-toobar>

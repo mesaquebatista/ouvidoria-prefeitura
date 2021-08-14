@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Tempo de geração: 14/08/2021 às 16:50
+-- Tempo de geração: 14/08/2021 às 20:54
 -- Versão do servidor: 5.7.32
 -- Versão do PHP: 7.4.12
 
@@ -13,6 +13,21 @@ SET time_zone = "+00:00";
 --
 -- Banco de dados: `denuncia`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura para tabela `atualizacaos`
+--
+
+CREATE TABLE `atualizacaos` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `denuncia_id` int(11) NOT NULL,
+  `descricao` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -95,6 +110,28 @@ INSERT INTO `data_types` (`id`, `name`, `slug`, `display_name_singular`, `displa
 (1, 'users', 'users', 'User', 'Users', 'voyager-person', 'TCG\\Voyager\\Models\\User', 'TCG\\Voyager\\Policies\\UserPolicy', 'TCG\\Voyager\\Http\\Controllers\\VoyagerUserController', '', 1, 0, NULL, '2021-08-14 19:45:51', '2021-08-14 19:45:51'),
 (2, 'menus', 'menus', 'Menu', 'Menus', 'voyager-list', 'TCG\\Voyager\\Models\\Menu', NULL, '', '', 1, 0, NULL, '2021-08-14 19:45:51', '2021-08-14 19:45:51'),
 (3, 'roles', 'roles', 'Role', 'Roles', 'voyager-lock', 'TCG\\Voyager\\Models\\Role', NULL, 'TCG\\Voyager\\Http\\Controllers\\VoyagerRoleController', '', 1, 0, NULL, '2021-08-14 19:45:51', '2021-08-14 19:45:51');
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura para tabela `denuncias`
+--
+
+CREATE TABLE `denuncias` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `descricao` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `role_id` int(11) NOT NULL,
+  `status_id` int(11) NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Despejando dados para a tabela `denuncias`
+--
+
+INSERT INTO `denuncias` (`id`, `descricao`, `role_id`, `status_id`, `created_at`, `updated_at`) VALUES
+(1, 'Aqui não anda polícia', 3, 1, '2021-08-14 23:50:17', '2021-08-14 23:50:17');
 
 -- --------------------------------------------------------
 
@@ -212,7 +249,10 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (20, '2018_03_11_000000_add_user_settings', 1),
 (21, '2018_03_14_000000_add_details_to_data_types_table', 1),
 (22, '2018_03_16_000000_make_settings_value_nullable', 1),
-(23, '2019_08_19_000000_create_failed_jobs_table', 1);
+(23, '2019_08_19_000000_create_failed_jobs_table', 1),
+(24, '2021_08_14_171148_create_denuncias_table', 2),
+(25, '2021_08_14_171409_create_statuses_table', 2),
+(26, '2021_08_14_171537_create_atualizacaos_table', 2);
 
 -- --------------------------------------------------------
 
@@ -384,6 +424,29 @@ INSERT INTO `settings` (`id`, `key`, `display_name`, `value`, `details`, `type`,
 -- --------------------------------------------------------
 
 --
+-- Estrutura para tabela `statuses`
+--
+
+CREATE TABLE `statuses` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `nome` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `color_hex` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Despejando dados para a tabela `statuses`
+--
+
+INSERT INTO `statuses` (`id`, `nome`, `color_hex`, `created_at`, `updated_at`) VALUES
+(1, 'EM ABERTO', '#E80000', NULL, NULL),
+(2, 'EM ATENDIMENTO', '#FFC300', NULL, NULL),
+(3, 'FINALIZADO', '#008749', NULL, NULL);
+
+-- --------------------------------------------------------
+
+--
 -- Estrutura para tabela `translations`
 --
 
@@ -442,6 +505,12 @@ CREATE TABLE `user_roles` (
 --
 
 --
+-- Índices de tabela `atualizacaos`
+--
+ALTER TABLE `atualizacaos`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Índices de tabela `data_rows`
 --
 ALTER TABLE `data_rows`
@@ -455,6 +524,12 @@ ALTER TABLE `data_types`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `data_types_name_unique` (`name`),
   ADD UNIQUE KEY `data_types_slug_unique` (`slug`);
+
+--
+-- Índices de tabela `denuncias`
+--
+ALTER TABLE `denuncias`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Índices de tabela `failed_jobs`
@@ -519,6 +594,12 @@ ALTER TABLE `settings`
   ADD UNIQUE KEY `settings_key_unique` (`key`);
 
 --
+-- Índices de tabela `statuses`
+--
+ALTER TABLE `statuses`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Índices de tabela `translations`
 --
 ALTER TABLE `translations`
@@ -546,6 +627,12 @@ ALTER TABLE `user_roles`
 --
 
 --
+-- AUTO_INCREMENT de tabela `atualizacaos`
+--
+ALTER TABLE `atualizacaos`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT de tabela `data_rows`
 --
 ALTER TABLE `data_rows`
@@ -556,6 +643,12 @@ ALTER TABLE `data_rows`
 --
 ALTER TABLE `data_types`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT de tabela `denuncias`
+--
+ALTER TABLE `denuncias`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de tabela `failed_jobs`
@@ -579,7 +672,7 @@ ALTER TABLE `menu_items`
 -- AUTO_INCREMENT de tabela `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 
 --
 -- AUTO_INCREMENT de tabela `permissions`
@@ -598,6 +691,12 @@ ALTER TABLE `roles`
 --
 ALTER TABLE `settings`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+
+--
+-- AUTO_INCREMENT de tabela `statuses`
+--
+ALTER TABLE `statuses`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de tabela `translations`

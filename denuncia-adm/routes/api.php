@@ -19,11 +19,10 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::group([
-    'prefix' => '/denuncia',
-    'namespace' => 'Api'
+    'prefix' => '/denuncia'
 ], function (){
 
-    Route::post('store', [ApiController::class, 'store']);
+    Route::post('store', [\App\Http\Controllers\Api\ApiController::class, 'store']);
 
 });
 

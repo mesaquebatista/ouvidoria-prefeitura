@@ -25,4 +25,20 @@ export class ApiService {
     });
   }
 
+  enviarDenuncia(data) {
+    return new Promise((resolve, reject) => {
+
+      let url = `${this.baseUrl}/denuncia/store`;
+
+      this.http.post(url, data)
+        .subscribe((result: any) => {
+          console.log(result);
+          resolve(result);
+        },
+        (error) => {
+          reject(error);
+        });
+    });
+  }
+
 }
