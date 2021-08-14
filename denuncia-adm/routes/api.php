@@ -26,3 +26,5 @@ Route::group([
     Route::post('store', [ApiController::class, 'store']);
 
 });
+
+Route::get('sectors', [\App\Http\Controllers\Api\ApiController::class, 'sectors']);
