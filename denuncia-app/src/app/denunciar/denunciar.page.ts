@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ApiService } = require('../services/api.service');
 // import 
 interface Secretaria {
   id: number,
@@ -12,18 +13,13 @@ interface Secretaria {
 })
 export class DenunciarPage implements OnInit {
 
-  secretarias: Secretaria[] = [
-    {
-      id: 1,
-      nome: "Secretaria de saúde"
-    }, 
-    {
-      id: 2,
-      nome: "Secretaria de educação"
-    }
-  ];
+  secretarias: Secretaria[] = [];
 
-  constructor() { }
+  constructor(private apiService: ApiService) {
+    this.apiService.pegarSecretarias().subscribe(data => {
+      console.log(data);
+    })
+  }
 
   ngOnInit() {
   }
